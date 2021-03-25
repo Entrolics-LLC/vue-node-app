@@ -2,6 +2,8 @@ import { allPaths } from './path'
 
 const K_SERVICE = process.env.K_SERVICE || 'local-app'
 
+console.log('process.env', process.env)
+
 const SSLCOMP = (val) => ({ template: `<p>${val}</p>` })
 
 const routes = {

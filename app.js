@@ -8,6 +8,11 @@ app.set('views', path.join(__dirname, '/dist'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 
+app.get('/', (req, res) => {
+  const K_SERVICE = process.env.K_SERVICE || 'local-app'
+  return res.send({ service: K_SERVICE })
+})
+
 app.use('/', express.static(__dirname + '/dist'))
 
 
