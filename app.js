@@ -1,5 +1,4 @@
 const express = require('express')
-const fs = require('fs')
 const app = express()
 const path = require('path')
 
@@ -8,13 +7,6 @@ const PORT = process.env.PORT || 4001
 app.set('views', path.join(__dirname, '/dist'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-
-
-app.get('/', (req, res) => {
-  const K_SERVICE = process.env?.K_SERVICE || 'local-app'
-  const region = req.headers['x-region'] || 'GCP'
-  return res.send({ K_SERVICE, region })
-})
 
 app.use('/', express.static(__dirname + '/dist'))
 
