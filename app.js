@@ -9,12 +9,11 @@ app.set('views', path.join(__dirname, '/dist'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 
-const testFolder = './'
 
 app.get('/', (req, res) => {
-  fs.readdir(testFolder, (err, files) => {
-    return res.send({ env: process.env, requestData: req.headers, files })
-  })
+  const K_SERVICE = process.env?.K_SERVICE || 'local-app'
+  const region = req.headers['x-region'] || 'GCP'
+  return res.send({ K_SERVICE, region })
 })
 
 app.use('/', express.static(__dirname + '/dist'))
