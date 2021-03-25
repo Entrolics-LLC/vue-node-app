@@ -1,17 +1,20 @@
 const express = require('express')
+const fs = require('fs')
 const app = express()
 const path = require('path')
 
 const PORT = process.env.PORT || 4001
-const REGION = process.env.REGION || 'unknown'
 
 app.set('views', path.join(__dirname, '/dist'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 
+const testFolder = './'
+
 app.get('/', (req, res) => {
-  console.log('req.headers', req.headers)
-  return res.send({ env: process.env, requestData: req.headers })
+  fs.readdir(testFolder, (err, files) => {
+    return res.send({ env: process.env, requestData: req.headers, files })
+  })
 })
 
 app.use('/', express.static(__dirname + '/dist'))
